@@ -96,3 +96,15 @@ Esta es la razón por la cual la mayoría de las personas usan VPNs hoy en día 
 
 Toda la información sobre los procesos internos de VPN fue recuperada de
 http://www.rawbytes.com/virtual-private-networks-in-depth-technical-details
+
+
+
+Métodos de Autenticación: 
+Infraestructura de Claves Públicas: 
+Mondino
+Una infraestructura de claves públicas (Public Key Infrastructure o PKI) es un sistema de recursos, políticas y servicios que da soporte al uso del cifrado de claves públicas que otorga la posibilidad gestionar certificados digitales, además de permitir realizar servicios de cifrado y firmas digitales.
+Los componentes que debe tener un PKI no están definidos por ningun estandar particular, sin embargo, suelen constar de 4 entidades importantes: La CA, la RA, la VA y la TSA, además de los usuarios involucrados. 
+La CA (Autoridad Emisoras de Certificados) son, principalmente, las encargadas de emitir, validar y revocar certificados digitales y distribuir las claves públicas. Mientras que las RA (Autoridades Emisoras de Registros) son responsables de verificar el enlace entre las claves públicas y la identidad de sus usuarios. Las VA (Autoridades de Validación) comprueban la validez de los certificados digitales. Y finalmente la TSA (Autoridad de Sellado de Tiempo) se encarga de dar fe de que un archivo particular existio en un momento dado.
+Las principales aplicaciones de PKI son email, comercios electrónicos y tráfico web. La idea es generar una llave mediante un algoritmo como  RSA (Rivest-Shamir-Adleman) o ECDSA (Elliptic Curve Digital Signature Algorithm) de forma de obtener 2 claves, una clave ‘x’ (pública)  y una clave ‘y’ (privada), de forma que se pueda compartir ‘x’ con otros usuarios que quieran establecer una comunicación. Si un usuario nos envía un mensaje encriptado con ‘x’, lo desencriptaremos con ‘y’, que solo nosotros conocemos. 
+Para el campo del email los dos tipos de PKI más utilizados son PGP (Pretty Good Privacy) y S/MIME (Secure/Multipurpose Internet Mail Extensions). 
+
