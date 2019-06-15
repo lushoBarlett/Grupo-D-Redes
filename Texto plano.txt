@@ -1,0 +1,98 @@
+
+ALGORITMOS
+
+DES (Data Encryption Standard)
+-Orientado a bits
+-Usa transposición y sustitución
+-Trabaja en bloques de 64 bits
+-Cada bloque ejecuta 16 iteraciones con distintas claves
+-Fue quedando obsoleto el alargue de bits para contrarrestar la fuerza bruta
+-Tenía vulnerabilidades
+-AES es recomendado hoy en día
+
+Funcionalidad general:
+Entran 64 bits de texto plano y salen 64 bits de texto cifrado, utilizando una clave de cifrado de 64 bits, de los cuales los últimos 8 son solamente de paridad, la clave efectiva es de 56 bits. El algoritmo puede ser utilizado para cifrar y descifrar por igual, sin cambio alguno.
+
+Estructura:
+Permutación inicial -> 16 rondas de cifrado con clave -> permutación final
+La permutación inicial y final son espejos una de la otra (si el bit 1 va al 58, luego el 58 va al 1), y se ejecutan con una tabla conocida de permutación.
+Cada una de las rondas toma la mitad izquierda y derecha, la izquierda se vuelve la derecha luego de hacerse un XOR con el resultado de la función Feistel que toma la porción derecha y la clave de cifrado correspondiente a esa iteración, la porción derecha pasa a ser la izquierda. La ronda 16 no alterna los lados.
+
+La clave de cifrado para la ronda 1 se consigue quitando los bits de paridad de la clave de 64 (se van los bits 8, 16, 32, 48, 56 y 64) y el resto son luego permutados de acuerdo a una tabla, a esos 56 bits los dividimos en dos y rotamos sus bits a la izquierda, para luego comprimirla a 48 bits (con una tabla). Las siguientes rondas toman la porción izquierda y derecha de 56 bits y repiten el proceso de rotación y compresión, nada más que rotamos 2 veces para las rondas que no sean la 1, 2, 9 y 16, donde rotamos 1.
+
+La función Feiner toma 32 bits de texto a cifrar y una clave de 48 bits. Los 32 bits son expandidos a 48 de a bloques que van de 4 a 6, donde los bits 1,2,3,4 se vuelven 2,3,4,5. El bit 1 es el 4 de la sección anterior y el bit 6 es el 1 de la sección siguiente (de forma circular).
+Luego de la expansión se hace un XOR con la clave y se comprimen los 48 bits a 32 de nuevo de a bloques llamados S-boxes, donde el algoritmo recibe su complejidad. De cada 6 bits, el bit 1 y 6 determinan la fila y el resto la columna de una tabla que devuelve un valor de 4 bits.
+Por último los bits se reordenan con una última tabla.
+
+3DES (3 Data Encryption Standard)
+
+Cada bloque es encriptado por DES 3 veces, aplica la función de encriptación de la clave 1, la desencriptación de la clave 2 y la encriptación de la clave 3. Para desencriptarlo se aplican en orden inverso las operaciones inversas.
+
+
+Criptografía de clave Asimétrica
+La criptografía de clave simétrica requiere que tanto el emisor como el receptor conozcan la clave secreta, pero el problema es ponerse de acuerdo si dichas entidades no se conocen.
+
+La respuesta es un enfoque radicalmente distinto, donde hay dos claves, una pública que todos son capaces de conocer y una privada que conoce el receptor solamente.
+
+Propiedades:
+> Debe ser fácil cifrar o descifrar, dada la clave adecuada.
+> Debe ser inviable derivar la clave privada desde la pública
+> Debe ser inviable derivar la clave privada a partir del texto descifrado
+
+El receptor genera las dos claves y le envía la clave pública al emisor para encriptar el mensaje, solamente desencriable por la clave privada que el receptor generó junto con la pública.
+
+Un problema que se presenta, en el caso de que un emisor use sus claves, es cómo saber si el emisor es realmente el emisor que nosotros pensamos. Para esto, el mensaje es encriptado usando la clave secreta que solo el emisor conoce, y deja disponible la clave pública, si el mensaje viene de quién pensamos, podemos usar esa clave para descifrar el mensaje.
+
+
+RSA
+Los conceptos teóricos que sustentan este algoritmo son ciertas propiedades matemáticas respecto a los números primos (factorizar números grandes es costoso), módulos y
+exponenciación
+
+Un algoritmo puede encontrar un par de claves, que debido a estas propiedades no son derivables una de la otra, pero tienen la propiedad de ser la inversa.
+
+1. Elegir dos números primos grandes, p y q (por ejemplo, 1.024 bits cada uno).
+2. Calcular n = p * q y z = (p - 1) * (q - 1).
+3. Elegir e (con e < n) que no tenga factores comunes
+con z (e y z son coprimos).
+4. Encontrar un número d , tal que (e * d) - 1 sea divisible por z (en otras palabras, e*d mod z = 1 ).
+5. La clave pública es (n,e). La clave privada es (n,d).
+
+Para encriptar tu mensaje de m bits hacemos c = me mod n
+Para desencriptar hacemos m = cd mod n
+
+Aunque se pueden utilizar las dos claves en cualquier orden, una deshace la otra en ambos casos.
+
+VPN
+
+Las VPNs (Virtual Private Networks) son un mecanismo por el cual podemos comunicarnos con otros dispositivos a través de WAN como si fuera una LAN, de forma segura. De ahí el nombre de Red Privada Virtual, no existe realmente, pero actúa como tal.
+
+Todo funciona a través de la inserción de una capa nueva, la de VPN, que actúa de la misma forma que el resto de las capas en networking. La data a enviar se encapsula en un header de VPN, que simplemente encripta dicha data. El paquete será desencapsulado desde el otro lado, por la capa VPN del receptor. Esto crea un “túnel” a través de la WAN por donde pasa la información, ignorando los procesos de la capa inferior IP.
+
+Explicaremos los diferentes casos a resolver por la VPN y cómo los resuelve, aunque el funcionamiento básico es siempre el mismo.
+
+Site to Site
+Supongamos el caso en el cual hay dos redes privadas diferentes separadas por la WAN (192.168.1.0/24 y 192.168.2.0/24 pero de diferentes LANs), pero queremos que se comuniquen como si estuviesen pegadas como subredes de una misma LAN. El gateway de cada red va a tener al menos dos interfaces de red distintas, la interna (la LAN) y la externa (la WAN). Vamos a sumar una interfaz virtual que va a ser nuestra VPN y que va a escuchar  paquetes en el puerto 500.
+
+Cuando un dispositivo en la red 1 quiere enviar un paquete a otro en la red 2, decidirá que como no está en su red lo enviará al gateway. El gateway hará el forwarding, en su tabla aparece que para la red 2 se debe derivar el paquete a nuestra interfaz VPN. Dicha interfaz recibe el paquete y lo encripta, agregando un header de VPN y enviando el paquete a la IP pública de la red 2 a través del puerto 500 (dedicado a la VPN del otro lado), el resto del routing se desarrolla ahora normalmente hasta llegar a la red 2, con la diferencia que cualquiera que desencapsule el paquete no lo podrá leer por estar encriptado con el protocolo VPN.
+
+Al llegar a la red 2 el router decide que el paquete es para sí mismo en el puerto 500 y se lo deriva a la VPN, que desencripta el mensaje y lee la dirección de red local de destino y lo envía.
+
+
+Remote User
+Este caso es aquel en el cual nos conectamos a una red privada y se nos asigna una IP privada correspondiente a esa red para esa sesión, esto no se podría normalmente porque al ser de manera remota no nos encontramos en la misma red, es imposible para el protocolo IP hacer algo así, pero para algo tenemos VPN, es como estar ahí.
+
+El proceso comienza distinto, esta vez el cliente VPN se conecta al VPN servidor y atraviesa procesos de autenticación y autorización. Luego de eso se crea una sesión, donde se le asigna una IP local al cliente (no es necesario que se corresponda con las IP de la red en cuestión) y este elige un puerto de comunicación al azar. Ahora el cliente puede comunicarse con la red remota con la misma metodología antes mencionada.
+
+
+Peer to Peer
+Este es el caso donde muchos clientes quieren conectarse a una red privada imaginaria entre ellos. Para lograr esto todos deben conocer sus IPs públicas y acordar IPs virtuales, por razones obvias de que el VPN sea capaz de decirle al protocolo IP dónde enviar las cosas realmente y que VPN sepa haga su magia con una IP privada de mentirita respectivamente.
+
+Cada gateway debe estar configurado como se mencionó al principio, y el resto es igual.
+
+
+Secure Browsing
+Esta es la razón por la cual la mayoría de las personas usan VPNs hoy en día (además de mentir sobre su región para ver contenido específico en Netflix). Esta forma de usar las VPNs requiere de un servidor VPN dedicado a estas cosas en algún lugar del mundo, al cual le pagamos, para dirigirle todo nuestro tráfico de internet con sus protocolos de seguridad y que el servidor sea “oficialmente” el emisor de los pedidos, de esa forma, para la WAN, nosotros no existimos, existe solamente el servidor en un determinado lugar del mundo que hace un pedido.
+
+// insertar imagenes
+
+Toda la información sobre los procesos internos de VPN fue recuperada de http://www.rawbytes.com/virtual-private-networks-in-depth-technical-details
