@@ -62,6 +62,7 @@ Para desencriptar hacemos m = cd mod n
 
 Aunque se pueden utilizar las dos claves en cualquier orden, una deshace la otra en ambos casos.
 
+
 VPN
 
 Las VPNs (Virtual Private Networks) son un mecanismo por el cual podemos comunicarnos con otros dispositivos a través de WAN como si fuera una LAN, de forma segura. De ahí el nombre de Red Privada Virtual, no existe realmente, pero actúa como tal.
@@ -93,6 +94,5 @@ Cada gateway debe estar configurado como se mencionó al principio, y el resto e
 Secure Browsing
 Esta es la razón por la cual la mayoría de las personas usan VPNs hoy en día (además de mentir sobre su región para ver contenido específico en Netflix). Esta forma de usar las VPNs requiere de un servidor VPN dedicado a estas cosas en algún lugar del mundo, al cual le pagamos, para dirigirle todo nuestro tráfico de internet con sus protocolos de seguridad y que el servidor sea “oficialmente” el emisor de los pedidos, de esa forma, para la WAN, nosotros no existimos, existe solamente el servidor en un determinado lugar del mundo que hace un pedido.
 
-// insertar imagenes
-
-Toda la información sobre los procesos internos de VPN fue recuperada de http://www.rawbytes.com/virtual-private-networks-in-depth-technical-details
+Toda la información sobre los procesos internos de VPN fue recuperada de
+http://www.rawbytes.com/virtual-private-networks-in-depth-technical-details
