@@ -1,0 +1,80 @@
+CIFRADO: Canut
+
+Introducción a la Criptografía
+κρύπτω krypto, «oculto», y γράφως graphos, «escribir»,
+literalmente «escritura oculta»
+
+
+// Definiciones:
+> Texto Plano: Texto a ser encriptado. Es transformado por una función parametrizada por una clave.
+> Texto Cifrado: Salida del proceso de encripción.
+> Intruso Pasivo: Escucha el tráfico. Se asume que esto siempre es posible.
+> Intruso Activo: Capaz de alterar el tráfico.
+> Criptología: La suma del Criptoanálisis (técnica de descifrar mensajes) y la Criptografía (técnica de crear cifrados).
+> Codigo: Reemplaza una palabra con otra. Eg. "Navajo", el cual es un idioma real. En la Segunda Guerra Mundial, el ejercito de EEUU dispuso operadores de radio en el frente que hablaba en esta lengua y enviaba mensajes incomprensibles para todos.
+// Definiciones
+> Cifrado: Transformacion caracter por caracter sin importar la estructura linguistica del mensaje.
+    s> Cifrado por sustitución: Se cambian los valores pero no sus posiciones. Eg, Cesar k=1. HOLA -> IPMB.
+  > Cifrado por transposición: Se cambian las posiciones de las unidades pero no su valor. Eg. Reverse. HOLA -> ALOH.
+
+// Notación:
+> Función E: función de encripción. C = E_k(P) Significa que el texto cifrado es igual al texto plano luego de aplicársele la función de cifrado con clave K.
+> Función D: función de descifrado. P = D_k(C).
+Estas son funciones matemáticas de dos parámetros, la clave y un texto.
+
+// Principios Criptograficos:
+> Principio de Kerckhoff: "Todos los algoritmos deben ser públicos; sólo las claves deben ser secretas". La seguridad por oscuridad nunca funciona.
+> Redundancia: Los mensajes deben contener alguna redundancia para alcanzar una alta confiabilidad.
+> Actualizacion: Es necesario algun metodo para frustrar los ataques por fuerza bruta.
+
+// Metodos de Cifrado: Cifrado Cesar
+Cada letra en el texto original es reemplazada por otra letra que se encuentra un número fijo de posiciones más adelante en el alfabeto.
+C(x) = (x+k) (mod n)
+Donde:  x indica la posicion de la letra en el abecedario,
+        C(x) indica la nueva posicion de la letra cifrada,
+        n es igual a la longitud del alfabeto y
+        k es la clave del cifrado.
+
+// Metodos de Cifrado: Atbash
+Se utilizo para cifrar ciertos pasajes del Antiguo Testamento. Consiste en sustituir una letra cualquiera n por aquella que esta a igual distancia del final del alfabeto de lo que n esta del principio.
+E(x) = -(x+1) mod n
+Donde:  x indica la posicion de la letra en el abecedario,
+        E(x) indica la nueva posicion de la letra cifrada y
+        n es igual a la longitud del alfabeto.
+
+// Analisis de frecuencias
+    Una manera de resolver el mensaje cifrado, si sabemos la lengua en la que esta escrito, es encontrar un texto llano escrito en la misma lengua, suficientemente largo, y luego contar cuantas veces aparece cada letra. Luego hacemos lo mismo con el texto cifrado y finalmente reemplazamos el simbolo con mayor frecuencia del texto plano en el de mayor frecuencia del texto cifrado. Luego con el segundo, y asi sucesivamente.
+    En los textos en español, una aproximacion de los porcentajes de aparicion de las letras es la siguiente:
+    A 11,96%    H  0,89%    Ñ  0,29%    U  4,80%
+    B  0,92%    I  4,15%    O  8,69%    V  0,39%
+    C  2,92%    J  0,30%    P  2,77%    W  0,01%
+    D  6,87%    K  0,01%    Q  1,53%    X  0,06%
+    E 16,78%    L  8,37%    R  4,94%    Y  1,54%
+    F  0,52%    M  2,12%    S  7,88%    Z  0,15%
+    G  0,73%    N  7,01%    T  3,31%    
+    // Es obvio que el metodo de frecuencias no siempre podra aplicarse de modo tan directo. Textos breves como por ejemplo "En Virginia, Vermont y Vancouver es vivido y vivificador el verde de la uva", presentan frecuencias relativas de letras muy diferentes al que caracterizan al idioma en su globalidad.
+
+// Transposición : Megabuck
+Primero se selecciona una palabra que no contiene letras repetidas. MEGABUCK por ejemplo. Luego se numeran las columnas, con el menor numero para la menor letra. Luego se escribe el mensaje, horizontalmente, en filas, las cuales se rellenan para completar a matriz si es necesario. El texto cifrado se lee por columnas, comenzando por la columna cuya letra clave es la mas baja.
+M E G A B U C K
+7 4 5 1 2 8 3 6
+p l e a s e t r
+a n s f e r o n
+e m i l l i o n
+d o l l a r s t
+o m y s w i s s
+b a n k a c c o
+u n t s i x t w
+o t w o a b c d
+Texto Llano pleasetransferonemilliondollarstomyswissbankaccountsixtwotwoABCD
+Texto Cifrado
+afllsksoselawaiatoossctclnmomantesilyntwrnntsowdpaedobuoeriricxb
+
+// ONE - TIME PADS
+Cifrado inviolable. Se elige un gran random bit string como clave de la longitud del texto. Se usa Bit XOR como E y D.
+Este cifrado es “inmune a todos los ataques actuales y futuros sin importar cuánta potencia computacional tenga el intruso“.
+El problema que tiene es como distribuir y proteger la clave.
+
+Cifrado por Bloques
+Se toma un bloque de n bits de texto plano como entrada y se transforma por partes llamadas bloques, a cada bloque se le aplica una transformación y los resultados forman el mensaje cifrado.
+
