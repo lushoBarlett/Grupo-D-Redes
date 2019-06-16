@@ -83,7 +83,12 @@ Algunas definiciones basicas:
 \subsection{Cifrado por Bloques}
 \begin{frame}{Cifrado}
 	Consiste en tomar un bloque de n bits de texto plano como entrada y transformarlo por partes llamadas bloques, a cada bloque se le aplica una transformación y los resultados forman el mensaje cifrado.
+\begin{figure}
+\includegraphics[scale=0.8]{CPB.jpg}
+\centering
+\end{figure}
 \end{frame}
+
 \section{Algoritmos}
 \subsection{Criptografia de Clave Asimetrica}
 \begin{frame}{Algoritmos}
@@ -106,10 +111,10 @@ Debe ser inviable derivar la clave privada a partir del texto descifrado.
 
 \subsection{RSA}
 \begin{frame} {Algoritmos}
-Los conceptos teóricos que sustentan este algoritmo son ciertas propiedades matemáticas respecto a los números primos (factorizar números grandes es costoso), módulos y
-exponenciación
-
-Un algoritmo puede encontrar un par de claves, que debido a estas propiedades no son derivables una de la otra, pero tienen la propiedad de ser la inversa.
+\begin{figure}
+\includegraphics[scale=0.32]{RSA.jpg}
+\centering
+\end{figure}
 \end{frame}
 \begin{frame} 
 \begin{itemize}
@@ -167,10 +172,27 @@ Cuando muchos clientes quieren conectarse a una red privada imaginaria entre ell
 \end{figure}
 \end{frame}
 \section{Firma Digital}
-\begin{frame}
+\begin{frame}{Firma Digital}
+Una Firma digital es un esquema matemático que sirve para demostrar la autenticidad de un mensaje digital o documento electrónico. Una firma digital da al destinatario seguridad en que el mensaje fue creado por el remitente, y que no fue alterado durante la transmisión. Estos documentos tienen validez jurídica.
+\begin{figure}
+\includegraphics[scale=0.25]{FD.jpg}
+\centering
+\end{figure}
 \end{frame}
+
 \section{PKI}
-\begin{frame}
+\begin{frame}{PKI}
+Una infraestructura de claves públicas (Public Key Infrastructure o PKI) es un sistema de recursos, políticas y servicios que da soporte al uso del cifrado de claves públicas que otorga la posibilidad gestionar certificados digitales, además de permitir realizar servicios de cifrado y firmas digitales.
+Los componentes que debe tener un PKI no están definidos por ningun estandar particular, sin embargo, suelen constar de 4 entidades importantes: La CA, la RA, la VA y la TSA, además de los usuarios involucrados. 
 \end{frame}
+
+\begin{frame}{PKI}
+\begin{figure}
+\includegraphics[scale=1.3]{pki2.jpg}
+\centering
+\end{figure}
+\end{frame}
+
 \end{document}
+
 
