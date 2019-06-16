@@ -1,1 +1,87 @@
 
+
+\documentclass{beamer}
+\mode<presentation>
+{
+  \usetheme{Szeged}
+ \usecolortheme{Beaver}
+  \setbeamercovered{transparent}
+}
+
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+\title[Seguridad ]
+{Seguridad}
+
+\subtitle
+{Grupo D}
+
+\author[Author, Another, Another1] % (optional, use only with lots of authors)
+{L.Barletta\inst{1}  \and I. Canut\inst{2} \and G. Mondino\inst{3}}
+
+
+\institute[I.P.S] % (optional, but mostly needed)
+{
+  Instituto Politecnico Superior\\
+ Gral. San Martin
+}
+\date
+{Conexion de Redes Extendidas, 2019}
+
+\subject{Theoretical Computer Science}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Contenidos}
+  \tableofcontents
+
+\end{frame}
+
+\section{Cifrado}
+\subsection{Introduccion a la Criptografia}
+
+\begin{frame}{Cifrado.} 
+
+Algunas definiciones basicas:
+  \begin{itemize}
+ \item
+    \texttt{Criptologia:} Es la suma de la Criptografia y el  Criptoanalisis.  
+ \item
+    \texttt{Codigo:} Se reemplaza una palabra por otra que significa lo mismo.
+\item
+    \texttt{Texto Plano:} Es el texto a ser encriptado.
+  \item
+    \texttt{Texto Cifrado:} Es el texto despues del proceso de encriptacion.
+ \item
+    \texttt{Intruso Pasivo:} Es capaz de escuchar el trafico, se asume como una posibilidad siempre.
+ \item
+    \texttt{Intruso Activo:} No solo es capaz de escuchar sino tambien alterar el trafico.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Cifrado} 
+
+    \begin{itemize}
+   \item
+    \texttt{Cifrado:} Transformacion caracter por caracter sin diferenciar la estructura linguistica del mensaje.  
+ \item
+    \texttt{Cifrado por Sustitucion:} Tipo de cifrado donde se cambian los valores pero no sus posiciones. 
+\item
+    \texttt{Cifrado por Transformacion:}  Tipo de cifrado donde se cambian las posiciones de las unidades pero no su valor. 
+    \end{itemize}
+  
+\end{frame}
+
+\end{document}
+
+
