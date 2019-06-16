@@ -81,7 +81,37 @@ Algunas definiciones basicas:
     \end{itemize}
   
 \end{frame}
-
+\subsection{Cifrado por Bloques}
+\begin{frame}{Cifrado}
+\end{frame}
+\section{Algoritmos}
+\begin{frame}{Algoritmos}
+\end{frame}
+\subsection{Criptografia de Clave Asimetrica}
+\begin{frame}
+\end{frame}
+\subsection{RSA}
+\begin{frame}
+\end{frame}
+\section{VPN}
+\begin{frame}
+\end{frame}
+\subsection{Site to Site}
+\begin{frame}
+\end{frame}
+\subsection{Remote User}
+\begin{frame}
+\end{frame}
+\subsection{Peer to Peer}
+\begin{frame}
+\end{frame}
+\subsection{Secured Browsing}
+\begin{frame}
+\end{frame}
+\section{Firma Digital}
+\begin{frame}
+\end{frame}
+\section{PKI}
+\begin{frame}
+\end{frame}
 \end{document}
-
-
