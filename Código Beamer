@@ -1,5 +1,4 @@
 
-
 \documentclass{beamer}
 \mode<presentation>
 {
@@ -66,11 +65,9 @@ Algunas definiciones basicas:
  \item
     \texttt{Intruso Activo:} No solo es capaz de escuchar sino tambien alterar el trafico.
   \end{itemize}
-
 \end{frame}
 
 \begin{frame}{Cifrado} 
-
     \begin{itemize}
    \item
     \texttt{Cifrado:} Transformacion caracter por caracter sin diferenciar la estructura linguistica del mensaje.  
@@ -79,20 +76,56 @@ Algunas definiciones basicas:
 \item
     \texttt{Cifrado por Transformacion:}  Tipo de cifrado donde se cambian las posiciones de las unidades pero no su valor. 
     \end{itemize}
-  
 \end{frame}
+
 \subsection{Cifrado por Bloques}
 \begin{frame}{Cifrado}
+	Consiste en tomar un bloque de n bits de texto plano como entrada y transformarlo por partes llamadas bloques, a cada bloque se le aplica una transformación y los resultados forman el mensaje cifrado.
 \end{frame}
 \section{Algoritmos}
-\begin{frame}{Algoritmos}
-\end{frame}
 \subsection{Criptografia de Clave Asimetrica}
-\begin{frame}
+\begin{frame}{Algoritmos}
+	La criptografía de clave simétrica requiere que tanto el emisor como el receptor conozcan la clave secreta, pero el problema es ponerse de acuerdo si dichas entidades no se conocen.
+
+	La respuesta es un enfoque radicalmente distinto, donde hay dos claves, una pública que todos son capaces de conocer y una privada que conoce el receptor solamente.
 \end{frame}
+
+\begin{frame}
+Propiedades de la Criptografia de Clave Asimetrica
+\begin{itemize}
+\item
+Debe ser fácil cifrar o descifrar, dada la clave adecuada.
+\item
+Debe ser inviable derivar la clave privada desde la pública.
+\item
+Debe ser inviable derivar la clave privada a partir del texto descifrado.
+\end{itemize}
+\end{frame}
+
 \subsection{RSA}
-\begin{frame}
+\begin{frame} {Algoritmos}
+Los conceptos teóricos que sustentan este algoritmo son ciertas propiedades matemáticas respecto a los números primos (factorizar números grandes es costoso), módulos y
+exponenciación
+
+Un algoritmo puede encontrar un par de claves, que debido a estas propiedades no son derivables una de la otra, pero tienen la propiedad de ser la inversa.
 \end{frame}
+\begin{frame} 
+\begin{itemize}
+\item
+Elegir dos números primos grandes, p y q (por ejemplo, 1.024 bits cada uno).
+\item
+Calcular n = p * q y z = (p - 1) * (q - 1).
+\item
+Elegir e (con e < n) que no tenga factores comunes con z (e y z son coprimos).
+\item
+Encontrar un número d , tal que (e * d) - 1 sea divisible por z (en otras palabras, e*d mod z = 1 ).
+\item
+La clave pública es (n,e). La clave privada es (n,d).
+\end{itemize}
+Para encriptar tu mensaje de m bits hacemos c = me mod n
+Para desencriptar hacemos m = cd mod n. Aunque se pueden utilizar las dos claves en cualquier orden, una deshace la otra en ambos casos.
+\end{frame}
+
 \section{VPN}
 \begin{frame}
 \end{frame}
