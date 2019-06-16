@@ -6,7 +6,8 @@
  \usecolortheme{Beaver}
   \setbeamercovered{transparent}
 }
-
+\usepackage{graphicx}
+\graphicspath{ {\Users\georg\Documents\Redes} }
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
@@ -44,6 +45,7 @@
   \tableofcontents
 
 \end{frame}
+
 
 \section{Cifrado}
 \subsection{Introduccion a la Criptografia}
@@ -127,19 +129,42 @@ Para desencriptar hacemos m = cd mod n. Aunque se pueden utilizar las dos claves
 \end{frame}
 
 \section{VPN}
-\begin{frame}
+\begin{frame}{VPN}
+Las VPNs (Virtual Private Networks) son un mecanismo por el cual podemos comunicarnos con otros dispositivos a través de WAN como si fuera una LAN, de forma segura. De ahí el nombre de Red Privada Virtual, no existe realmente, pero actúa como tal.\\
+\begin{figure}
+ \includegraphics[scale=0.5]{VPN.jpg}
+\centering
+\end{figure}
 \end{frame}
 \subsection{Site to Site}
-\begin{frame}
+\begin{frame}{VPN}
+\begin{figure}
+\includegraphics[scale=0.7]{S2S.jpg}
+\centering
+\end{figure}
 \end{frame}
 \subsection{Remote User}
-\begin{frame}
+\begin{frame}{VPN}
+\begin{figure}
+\includegraphics[scale=0.8]{RA.jpg}
+\centering
+\end{figure}
 \end{frame}
 \subsection{Peer to Peer}
-\begin{frame}
+\begin{frame} {VPN}
+Cuando muchos clientes quieren conectarse a una red privada imaginaria entre ellos, todos deben conocer sus IPs públicas y acordar IPs virtuales.
+\begin{figure}
+\includegraphics[scale=0.5]{P2P.jpg}
+\centering
+\end{figure}
 \end{frame}
 \subsection{Secured Browsing}
-\begin{frame}
+\begin{frame}{VPN}
+ Esta forma de usar las VPNs requiere de un servidor VPN dedicado a estas cosas, al cual le pagamos, para dirigirle todo nuestro tráfico de internet con sus protocolos de seguridad y que el servidor sea “oficialmente” el emisor de los pedidos, de esa forma, para la WAN, nosotros no existimos, existe solamente el servidor en un determinado lugar del mundo que hace un pedido.
+\begin{figure}
+\includegraphics[scale=0.5]{SecBrow.jpg}
+\centering
+\end{figure}
 \end{frame}
 \section{Firma Digital}
 \begin{frame}
@@ -148,3 +173,4 @@ Para desencriptar hacemos m = cd mod n. Aunque se pueden utilizar las dos claves
 \begin{frame}
 \end{frame}
 \end{document}
+
