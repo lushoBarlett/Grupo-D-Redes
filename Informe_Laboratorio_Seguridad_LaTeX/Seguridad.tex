@@ -1,0 +1,231 @@
+\documentclass[a4paper, 12pt, usenames]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{wrapfig}
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+\topmargin=-1cm
+\oddsidemargin=0cm
+\textheight=24cm
+\textwidth=17cm
+
+\begin{document}
+
+\begin{titlepage}
+\begin{minipage}{2.6cm}
+\includegraphics[width=\textwidth]{ips.pdf}
+\end{minipage}
+\begin{minipage}{11cm}
+\begin{center}
+\normalsize{Universidad Nacional de Rosario\\
+Instituto Politécnico Superior\\
+``General San Martín''\\}
+\end{center}
+\end{minipage}
+\begin{minipage}{2.6cm}
+\includegraphics[width=\textwidth]{unr.pdf}
+\end{minipage}
+\bigskip
+\bigskip
+\begin{center}
+\normalsize{Conexión de Redes Extendidas}\\
+\bigskip
+\bigskip
+\bigskip
+\large{Laboratorio PKI y red VPN}\\
+\bigskip
+\bigskip
+\bigskip
+\normalsize
+Barletta, Luciano - Canut, Iker - Mondino, Georgina\\
+
+\vspace*{0.5cm}
+\small{19 de Junio 2019}
+
+\vspace*{11cm}
+
+\begin{abstract}
+
+En este informe se explica como crear tu propia Autoridad de Certificación (CA), junto a los certificados y claves para un servidor OpenVPN y multiples clientes. Luego se explica como crear una red simple VPN.
+
+\end{abstract}
+
+\normalsize
+6\textordmasculine Año Informática\\
+
+\end{center}
+\end{titlepage}
+
+\lhead{\scriptsize{Autoridad de Certificación}}
+\rhead{\scriptsize{Barletta - Canut - Mondino}}
+\lfoot{\scriptsize{Conexión de Redes Extendidas}}
+\cfoot{\scriptsize{Junio de 2019}}
+\rfoot{\scriptsize{Página \thepage}}
+\renewcommand{\footrulewidth}{0.6pt}
+
+\newpage
+
+\section{Crear tu propia Autoridad de Certificación. Generar certificados y claves para un servidor OpenVPN y múltiples clientes.}
+\subsection{Teoría básica}
+El primer paso para configurar el OpenVPN es establecer un PKI (Public key Infrastructure). Un PKI consiste de:
+\begin{itemize}
+\item Un certificado separado (Clave pública) y una clave privada para el servidor y cada cliente.
+\item Un certificado de autoridad “Master” y una clave que se usan para firmar cada uno de los certificados servidor - cliente.
+\end{itemize}
+
+OpenVPN soporta autenticación bidireccional. Esto significa que el cliente verifica la autenticidad del servidor y viceversa, antes de establecer confianza mutua.\\
+Ambos, cliente y servidor, verifican la autenticidad del otro ente verificando que el certificado haya estado firmado por el master CA (Autoridad de Certificación), para luego testear la información del header del certificado (ya autorizado).\\ \\
+Este modelo tiene varias implementaciones valiosas desde el punto de vista del VPN, como pueden ser:
+
+\begin{itemize}
+\item El server solo necesita su propio certificado y clave, no necesita saber el certificado de cada uno de los clientes que se quieran conectar.
+\item El server solo acepta clientes cuyos certificados hayan sido firmados por el master CA; y como el servidor puede hacer esta verificación sin la necesidad de acceder a la clave privada, la misma puede residir en una computadora distinta, incluso en una sin conexión.
+\item Si una clave privada se ve comprometida, puede ser deshabilitada al agregar su certificado al CRL (certificate revocation list). \\
+\end{itemize}
+
+\subsection{Como generar la Autoridad de Certificación Maestra (junto a su Certificado y Clave):}
+Para la gestión de PKI, en este informe usaremos easy-rsa2. Si no está instalado en su computadora, se puede encontrar en el siguiente link:
+\begin{center}
+\textbf{https://github.com/OpenVPN/easy-rsa-old}\\
+\end{center}
+
+Primero abrimos una terminal, para luego movernos hasta el subdirectorio easy-rsa. Generalmente está en \textbf{/usr/share/doc/packages/openvpn}. Se recomienda copiar esta carpeta a otro directorio para evitar sobreescrituras.\\ \\
+
+Luego editamos el archivo llamado \textbf{vars}, poniendo valores a KEY\_COUNTRY, KEY\_PROVINCE, KEY\_CITY, KEY\_ORG, y KEY\_EMAIL. No se debe dejar ninguno en blanco.\\
+
+Después inicializamos el PKI.\\
+\textbf{
+    \tab . ./vars\\
+    \tab ./clean-all\\
+    \tab ./build-ca\\
+}
+
+El comando \textbf{build-ca} va a crear el Certificado y la clave de la Autoridad de Certificación, invocando el comando openssl interactivo.\\
+
+\subsection{Como generar el certificado y la clave para el Servidor:}
+A continuación, ejecutamos el siguiente comando:\\
+\tab \textbf{./build-key-server server\\}
+
+Cuando se pregunte por el \textbf{Common Name}, se puede escribir \textbf{server}. Luego, a las dos preguntas, “Sign the certificate? \textbf{[y/n]}” y “1 out of 1 certificate requests certified, commit? \textbf{[y/n]}” se le debe responder afirmativamente.\\
+
+\subsection{Como generar el certificado y la clave el cliente:}
+Para generar la información del cliente 1, ejecutamos:\\
+    \tab \textbf{./build-key client1\\}
+En el caso de que se quiera generar la información de varios clientes, basta con ejecutar la instrucción con distintos parámetros, como por ejemplo:\\
+    \textbf{
+    \tab ./build-key client2\\
+    \tab ./build-key client3\\ \\ }
+
+Y si se quiere proteger las claves de los clientes, se debe especificar en el \textbf{build-key-pass} script.
+
+\subsection{Como generar los parámetros Diffie Hellman:}
+
+Desde la terminal corremos la siguiente instrucción:\\
+    \textbf{\tab ./build-dh\\ \\}
+
+El output esperado es:\\
+\textbf{
+\tab ai:easy-rsa \# ./build-dh\\
+\tab Generating DH parameters, 1024 bit long safe prime, generator 2\\
+\tab This is going to take a long time\\
+\tab .................+...........................................\\
+\tab ...................+.............+.................+.........\\
+\tab ......................................\\
+}
+
+\subsection{Archivos claves:}
+Ahora las llaves y certificados se encuentran en el subdirectorio \textbf{keys}. En la siguiente tabla se especifican los archivos más relevantes.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Filename & Needed By & Purpose & Secret\\
+\hline
+ca.crt&
+server + all clients&
+Root CA certificate&
+NO\\
+\hline
+ca.key&
+key signing machine only&
+Root CA key&
+YES\\
+\hline
+dh{n}.pem&
+server only&
+Diffie Hellman parameters&
+NO\\
+\hline
+server.crt&
+server only&
+Server Certificate&
+NO\\
+\hline
+server.key&
+server only&
+Server Key&
+YES\\
+\hline
+client1.crt&
+client1 only&
+Client1 Certificate&
+NO\\
+\hline
+client1.key&
+client1 only&
+Client1 Key&
+YES\\
+\hline
+client2.crt&
+client2 only&
+Client2 Certificate&
+NO\\
+\hline
+client2.key&
+client2 only&
+Client2 Key&
+YES\\
+\hline
+client3.crt&
+client3 only&
+Client3 Certificate&
+NO\\
+\hline
+client3.key&
+client3 only&
+Client3 Key&
+YES\\ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Próximos pasos:}
+Pero ¿No debería ser posible configurar la PKI sin un canal seguro preexistente? Y la respuesta es sí. En este ejemplo, por simplicidad, se generaron todas las claves en el mismo lugar. Pero las cosas se pueden hacer de otra manera, por ejemplo generando los certificados y claves de los clientes en el servidor, los clientes podrían haber generado sus propias claves privadas localmente y luego enviar una solicitud de firma de certificado (CSR) a la máquina de firma de claves. A su vez, la máquina de firma de claves podría procesar la CSR y devolver el certificado firmado al cliente. Esto se podría lograr sin necesidad de que el archivo secreto \textbf{.key} salga del disco de la máquina en la que se generó. \\
+
+\newpage
+\section{Crear tu propia red VPN}
+\subsection{Configuración del servidor:}
+Para comenzar con la configuración de la red VPN, nos dirigimos a 
+\textbf{/usr/share/doc/openvpn/examples/sample-config-files/}
+y luego corremos : \\
+\tab \textbf{gunzip server.conf.gz\\ \\}
+Una vez hecho esto, abrimos el archivo \textbf{server.conf} y buscamos la linea de \textbf{ca}, \textbf{crt}, \textbf{key} y \textbf{dh}, escribiendo las rutas de dichos archivos. También debemos anotar la dirección de la red para luego cargarla en el cliente. Guardamos los cambios y ejecutamos la siguiente instrucción: \\
+\tab \textbf{openvpn server.conf}\\ 
+
+\subsection{Configuración del servidor:}
+Del lado del cliente, nos dirigimos nuevamente a la misma carpeta, pero en este caso editamos el archivo \textbf{client.conf}, agregando las direcciones de \textbf{ca}, \textbf{crt} y \textbf{key}. Además de esto, se debe reemplazar la linea que dice \textbf{remote-server} con la red que se usó en el lado del servidor. Luego guardamos y ejecutamos el siguiente comando:\\
+\tab \textbf{openvpn client.conf}
+
+\subsection{Conclusiones}
+Con esto, queda configurada una red VPN simple entre un servidor y un cliente, pero facilmente se puede expandir a varios usuarios.
+
+\end{document}
