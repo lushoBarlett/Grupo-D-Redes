@@ -80,6 +80,68 @@ Algunas definiciones basicas:
     \end{itemize}
 \end{frame}
 
+\subsection{Notaciones}
+\begin{frame}{Cifrado}
+\begin{itemize}
+\item Función E: función de encripción. C = E\_k(P) Significa que el texto cifrado es igual al texto plano luego de aplicársele la función de cifrado con clave K.
+\item Función D: función de descifrado. P = D\_k(C).
+\end{itemize}
+\end{frame}
+
+\subsection{Principios Criptograficos}
+\begin{frame}{Cifrado}
+\begin{itemize}
+\item Principio de Kerckhoff: "Todos los algoritmos deben ser públicos; sólo las claves deben ser secretas". La seguridad por oscuridad nunca funciona.
+\item Redundancia: Los mensajes deben contener alguna redundancia para alcanzar una alta confiabilidad.
+\item Actualizacion: Es necesario algun metodo para frustrar los ataques por fuerza bruta.
+\end{itemize}
+\end{frame}
+
+\subsection{Metodos de Cifrado}
+\begin{frame}{Cifrado}
+\begin{itemize}
+\item Cifrado Cesar:
+Cada letra en el texto original es reemplazada por otra letra que se encuentra un número fijo de posiciones más adelante en el alfabeto.
+C(x) = (x+k) (mod n)
+\item Atbash
+Se utilizo para cifrar ciertos pasajes del Antiguo Testamento. Consiste en sustituir una letra cualquiera n por aquella que esta a igual distancia del final del alfabeto de lo que n esta del principio.
+E(x) = -(x+1) mod n
+\end{itemize}
+\end{frame}
+\begin{frame}{Cifrado}
+\begin{itemize}
+\item Megabuck
+Primero se selecciona una palabra que no contiene letras repetidas. MEGABUCK por ejemplo. Luego se numeran las columnas, con el menor numero para la menor letra. Luego se escribe el mensaje, horizontalmente, en filas, las cuales se rellenan para completar a matriz si es necesario. El texto cifrado se lee por columnas, comenzando por la columna cuya letra clave es la mas baja.
+\end{itemize}
+\end{frame}
+\begin{frame}{Cifrado}
+M E G A B U C K\\
+7 4 5 1 2 8 3 6\\
+p l e a s e t r\\
+a n s f e r o n\\
+e m i l l i o n\\
+d o l l a r s t\\
+o m y s w i s s\\
+b a n k a c c o\\
+u n t s i x t w\\
+o t w o a b c d\\
+Texto Llano pleasetransferonemilliondollarstomyswissbankaccountsixtwotwoABCD\\
+Texto Cifrado afllsksoselawaiatoossctclnmomantesilyntwrnntsowdpaedobuoeriricxb\\
+
+\end{frame}
+
+\subsection{Analisis de Frecuencias}
+\begin{frame}{Cifrado}
+Una manera de resolver el mensaje cifrado, si sabemos la lengua en la que esta escrito, es encontrar un texto llano escrito en la misma lengua, suficientemente largo, y luego contar cuantas veces aparece cada letra. Luego hacemos lo mismo con el texto cifrado y finalmente reemplazamos el simbolo con mayor frecuencia del texto plano en el de mayor frecuencia del texto cifrado. Luego con el segundo, y asi sucesivamente.
+\end{frame}
+\begin{frame}{Cifrado}
+Analisis de frecuencias en el idioma Español
+\begin{figure}
+\includegraphics[scale=0.4]{AF.jpg}
+\end{figure}
+\end{frame}
+
+
 \subsection{Cifrado por Bloques}
 \begin{frame}{Cifrado}
 	Consiste en tomar un bloque de n bits de texto plano como entrada y transformarlo por partes llamadas bloques, a cada bloque se le aplica una transformación y los resultados forman el mensaje cifrado.
@@ -171,11 +233,21 @@ Cuando muchos clientes quieren conectarse a una red privada imaginaria entre ell
 \centering
 \end{figure}
 \end{frame}
-\section{Firma Digital}
+\section{Firmas y Certificados Digitales}
+\subsection{Firmas Digitales}
 \begin{frame}{Firma Digital}
 Una Firma digital es un esquema matemático que sirve para demostrar la autenticidad de un mensaje digital o documento electrónico. Una firma digital da al destinatario seguridad en que el mensaje fue creado por el remitente, y que no fue alterado durante la transmisión. Estos documentos tienen validez jurídica.
 \begin{figure}
 \includegraphics[scale=0.25]{FD.jpg}
+\centering
+\end{figure}
+\end{frame}
+
+\subsection {Certificados Digitales}
+\begin{frame}{Certificados Digitales}
+Un certificado digital es un fichero firmado electrónicamente por un prestador de servicios de certificación, considerado por otras entidades como una autoridad, que vincula unos datos de verificación de firma a un firmante, de forma que únicamente puede firmar este firmante, y confirma su identidad. Tiene una estructura de datos que contiene información sobre la entidad (por ejemplo una clave pública). 
+\begin{figure}
+\includegraphics[scale=0.12]{CDig.jpg}
 \centering
 \end{figure}
 \end{frame}
@@ -192,6 +264,7 @@ Los componentes que debe tener un PKI no están definidos por ningun estandar pa
 \centering
 \end{figure}
 \end{frame}
+
 
 \end{document}
 
