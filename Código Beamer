@@ -20,11 +20,11 @@
 \subtitle
 {Grupo D}
 
-\author[Author, Another, Another1] % (optional, use only with lots of authors)
+\author[Author, Another, Another1] 
 {L.Barletta\inst{1}  \and I. Canut\inst{2} \and G. Mondino\inst{3}}
 
 
-\institute[I.P.S] % (optional, but mostly needed)
+\institute[I.P.S]
 {
   Instituto Politecnico Superior\\
  Gral. San Martin
@@ -42,8 +42,7 @@
 \end{frame}
 
 \begin{frame}{Contenidos}
-  \tableofcontents
-
+\tiny \tableofcontents
 \end{frame}
 
 
@@ -116,17 +115,17 @@ Primero se selecciona una palabra que no contiene letras repetidas. MEGABUCK por
 \end{frame}
 \begin{frame}{Cifrado}
 M E G A B U C K\\
-7 4 5 1 2 8 3 6\\
-p l e a s e t r\\
-a n s f e r o n\\
-e m i l l i o n\\
-d o l l a r s t\\
-o m y s w i s s\\
-b a n k a c c o\\
-u n t s i x t w\\
-o t w o a b c d\\
-Texto Llano pleasetransferonemilliondollarstomyswissbankaccountsixtwotwoABCD\\
-Texto Cifrado afllsksoselawaiatoossctclnmomantesilyntwrnntsowdpaedobuoeriricxb\\
+\small 7 4 5 1 2 8 3 6\\
+\small p l e a s e t r\\
+\small a n s f e r o n\\
+\small e m i l l i o n\\
+\small d o l l a r s t\\
+\small o m y s w i s s\\
+\small b a n k a c c o\\
+\small u n t s i x t w\\
+\small o t w o a b c d\\
+\small Texto Llano pleasetransferonemilliondollarstomyswissbankaccountsixtwotwoABCD\\
+\small Texto Cifrado afllsksoselawaiatoossctclnmomantesilyntwrnntsowdpaedobuoeriricxb\\
 
 \end{frame}
 
@@ -140,7 +139,13 @@ Analisis de frecuencias en el idioma Español
 \includegraphics[scale=0.4]{AF.jpg}
 \end{figure}
 \end{frame}
+\subsection{ONE\_TIME PADS}
+\begin{frame}
+Cifrado inviolable. \\ Se elige un gran random bit string como clave de la longitud del texto. Se usa Bit XOR como E y D.\\
+Este cifrado es “inmune a todos los ataques actuales y futuros sin importar cuánta potencia computacional tenga el intruso“.\\
+El problema que tiene es como distribuir y proteger la clave.
 
+\end{frame}
 
 \subsection{Cifrado por Bloques}
 \begin{frame}{Cifrado}
