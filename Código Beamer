@@ -21,7 +21,8 @@
 {Grupo D}
 
 \author[Author, Another, Another1] 
-{L.Barletta\inst{1}  \and I. Canut\inst{2} \and G. Mondino\inst{3}}
+{L.Barletta\footnote {lushobarlett@gmail.com} \and I. Canut \footnote{ikermartincanut@gmail.com }\and G. Mondino \footnote{georgina.mondnino1@gmail.com}}
+
 
 
 \institute[I.P.S]
@@ -32,13 +33,15 @@
 \date
 {Conexion de Redes Extendidas, 2019}
 
-\subject{Theoretical Computer Science}
 
 
 \begin{document}
 
 \begin{frame}
   \titlepage
+
+
+
 \end{frame}
 
 \begin{frame}{Contenidos}
@@ -49,9 +52,8 @@
 \section{Cifrado}
 \subsection{Introduccion a la Criptografia}
 
-\begin{frame}{Cifrado.} 
+\begin{frame}{Algunas definiciones basicas:} 
 
-Algunas definiciones basicas:
   \begin{itemize}
  \item
     \texttt{Criptologia:} Es la suma de la Criptografia y el  Criptoanalisis.  
@@ -68,7 +70,7 @@ Algunas definiciones basicas:
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Cifrado} 
+\begin{frame}{Tipos de Cifrado} 
     \begin{itemize}
    \item
     \texttt{Cifrado:} Transformacion caracter por caracter sin diferenciar la estructura linguistica del mensaje.  
@@ -80,7 +82,7 @@ Algunas definiciones basicas:
 \end{frame}
 
 \subsection{Notaciones}
-\begin{frame}{Cifrado}
+\begin{frame}{Notaciones}
 \begin{itemize}
 \item Función E: función de encripción. C = E\_k(P) Significa que el texto cifrado es igual al texto plano luego de aplicársele la función de cifrado con clave K.
 \item Función D: función de descifrado. P = D\_k(C).
@@ -88,7 +90,7 @@ Algunas definiciones basicas:
 \end{frame}
 
 \subsection{Principios Criptograficos}
-\begin{frame}{Cifrado}
+\begin{frame}{Tres Principios Importantes}
 \begin{itemize}
 \item Principio de Kerckhoff: "Todos los algoritmos deben ser públicos; sólo las claves deben ser secretas". La seguridad por oscuridad nunca funciona.
 \item Redundancia: Los mensajes deben contener alguna redundancia para alcanzar una alta confiabilidad.
@@ -97,23 +99,27 @@ Algunas definiciones basicas:
 \end{frame}
 
 \subsection{Metodos de Cifrado}
-\begin{frame}{Cifrado}
+\begin{frame}{Cifrado Cesar}
 \begin{itemize}
-\item Cifrado Cesar:
-Cada letra en el texto original es reemplazada por otra letra que se encuentra un número fijo de posiciones más adelante en el alfabeto.
+\item Cifrado Cesar:\\
+Cada letra en el texto original es reemplazada por otra letra que se encuentra un número fijo de posiciones más adelante en el alfabeto.\\
 C(x) = (x+k) (mod n)
-\item Atbash
-Se utilizo para cifrar ciertos pasajes del Antiguo Testamento. Consiste en sustituir una letra cualquiera n por aquella que esta a igual distancia del final del alfabeto de lo que n esta del principio.
+\end{itemize}
+\end{frame}
+\begin{frame}{Cifrado Atbash}
+\begin{itemize}
+\item Atbash:\\
+Se utilizo para cifrar ciertos pasajes del Antiguo Testamento. Consiste en sustituir una letra cualquiera n por aquella que esta a igual distancia del final del alfabeto de lo que n esta del principio.\\
 E(x) = -(x+1) mod n
 \end{itemize}
 \end{frame}
-\begin{frame}{Cifrado}
+\begin{frame}{Cifrado Megabuck}
 \begin{itemize}
 \item Megabuck
 Primero se selecciona una palabra que no contiene letras repetidas. MEGABUCK por ejemplo. Luego se numeran las columnas, con el menor numero para la menor letra. Luego se escribe el mensaje, horizontalmente, en filas, las cuales se rellenan para completar a matriz si es necesario. El texto cifrado se lee por columnas, comenzando por la columna cuya letra clave es la mas baja.
 \end{itemize}
 \end{frame}
-\begin{frame}{Cifrado}
+\begin{frame}
 M E G A B U C K\\
 \small 7 4 5 1 2 8 3 6\\
 \small p l e a s e t r\\
@@ -129,31 +135,38 @@ M E G A B U C K\\
 
 \end{frame}
 
-\subsection{Analisis de Frecuencias}
-\begin{frame}{Cifrado}
+\begin{frame}{Analisis de Frecuencias}
+\begin{itemize}
+\item Analisis de Frecuencias
 Una manera de resolver el mensaje cifrado, si sabemos la lengua en la que esta escrito, es encontrar un texto llano escrito en la misma lengua, suficientemente largo, y luego contar cuantas veces aparece cada letra. Luego hacemos lo mismo con el texto cifrado y finalmente reemplazamos el simbolo con mayor frecuencia del texto plano en el de mayor frecuencia del texto cifrado. Luego con el segundo, y asi sucesivamente.
+\end{itemize}
 \end{frame}
-\begin{frame}{Cifrado}
+\begin{frame}{Analisis de frecuencias en el idioma Español}
 Analisis de frecuencias en el idioma Español
 \begin{figure}
 \includegraphics[scale=0.4]{AF.jpg}
 \end{figure}
 \end{frame}
-\subsection{ONE\_TIME PADS}
-\begin{frame}
-Cifrado inviolable. \\ Se elige un gran random bit string como clave de la longitud del texto. Se usa Bit XOR como E y D.\\
+
+\begin{frame}{ONE\_TIME PADS }
+\begin{itemize}
+\item Cifrado inviolable.\\
+Se elige un gran random bit string como clave de la longitud del texto. Se usa Bit XOR como E y D.\\
 Este cifrado es “inmune a todos los ataques actuales y futuros sin importar cuánta potencia computacional tenga el intruso“.\\
 El problema que tiene es como distribuir y proteger la clave.
-
+\end{itemize}
 \end{frame}
 
-\subsection{Cifrado por Bloques}
-\begin{frame}{Cifrado}
+\begin{frame}{Cifrado por Bloques}
+\begin{itemize}
+\item Cifrado por Bloques:\\
 	Consiste en tomar un bloque de n bits de texto plano como entrada y transformarlo por partes llamadas bloques, a cada bloque se le aplica una transformación y los resultados forman el mensaje cifrado.
+\end{itemize}
 \begin{figure}
-\includegraphics[scale=0.8]{CPB.jpg}
+\includegraphics[scale=0.65]{CPB.jpg}
 \centering
 \end{figure}
+
 \end{frame}
 
 \section{Algoritmos}
@@ -164,8 +177,7 @@ El problema que tiene es como distribuir y proteger la clave.
 	La respuesta es un enfoque radicalmente distinto, donde hay dos claves, una pública que todos son capaces de conocer y una privada que conoce el receptor solamente.
 \end{frame}
 
-\begin{frame}
-Propiedades de la Criptografia de Clave Asimetrica
+\begin{frame}{Propiedades de la Criptografia de Clave Asimetrica}
 \begin{itemize}
 \item
 Debe ser fácil cifrar o descifrar, dada la clave adecuada.
@@ -177,7 +189,7 @@ Debe ser inviable derivar la clave privada a partir del texto descifrado.
 \end{frame}
 
 \subsection{RSA}
-\begin{frame} {Algoritmos}
+\begin{frame} {Algoritmo RSA}
 \begin{figure}
 \includegraphics[scale=0.32]{RSA.jpg}
 \centering
@@ -258,12 +270,13 @@ Un certificado digital es un fichero firmado electrónicamente por un prestador 
 \end{frame}
 
 \section{PKI}
+\subsection{Infraestructura de Clave Publica}
 \begin{frame}{PKI}
 Una infraestructura de claves públicas (Public Key Infrastructure o PKI) es un sistema de recursos, políticas y servicios que da soporte al uso del cifrado de claves públicas que otorga la posibilidad gestionar certificados digitales, además de permitir realizar servicios de cifrado y firmas digitales.
 Los componentes que debe tener un PKI no están definidos por ningun estandar particular, sin embargo, suelen constar de 4 entidades importantes: La CA, la RA, la VA y la TSA, además de los usuarios involucrados. 
 \end{frame}
 
-\begin{frame}{PKI}
+\begin{frame}{Componentes de una PKI}
 \begin{figure}
 \includegraphics[scale=1.3]{pki2.jpg}
 \centering
@@ -272,5 +285,4 @@ Los componentes que debe tener un PKI no están definidos por ningun estandar pa
 
 
 \end{document}
-
 
